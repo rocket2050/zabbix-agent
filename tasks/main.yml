@@ -1,0 +1,38 @@
+---
+
+- name: Installing zabbix agent rpm package
+  get_url:
+    url: http://repo.zabbix.com/zabbix/{{ version }}/ubuntu/pool/main/z/zabbix-release/zabbix-release_{{ version }}-1+trusty_all.deb
+    dest: /tmp/
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == "trusty"
+
+- name: Installing zabbix server rpm package
+  get_url: 
+    url: http://repo.zabbix.com/zabbix/{{ version }}/ubuntu/pool/main/z/zabbix-release/zabbix-release_{{ version }}-1+xenial_all.deb
+    dest: /tmp/
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == "xenial" 
+
+- name: dpkg packages...
+  command: dpkg -i /tmp/zabbix-release_{{ version }}-1+trusty_all.deb
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == "trusty"
+
+- name: dpkg packages
+  command: dpkg -i /tmp/zabbix-release_{{ version }}-1+xenial_all.deb
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_release == "xenial"
+
+- name: Update the cache...
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Installing Zabbix Agent ...
+  apt: name=zabbix-agent state=installed
+  when: ansible_os_family == "Debian"
+
+- name: Installing Zabbix Agent ...
+  yum: name=zabbix-agent state=installed
+  when: ansible_os_family == "Redhat"
+
+- name: Configuring Zabbix Agent ...
+  template: src=zabbix_agent.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf owner=root group=root mode=0644
+  notify: zabbix-agent restart

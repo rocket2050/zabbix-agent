@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: Sandy
+  description: Ansible role to install zabbix-agent
+  company: Opstree
+  license: MIT
+  min_ansible_version: 1.9
+  platforms:
+  - name: EL
+    versions:
+    - 6
+    - 7
+  - name: Ubuntu
+    versions:
+    - precise
+    - trusty
+    - vivid
+  galaxy_tags:
+    - zabbix
+    - zabbix-agent
+    - monitoring
+dependencies:
+    - 

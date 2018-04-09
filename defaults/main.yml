@@ -1,0 +1,5 @@
+---
+# defaults file for zabbix-agent
+version: 3.4
+zabbix_server_ip: "127.0.0.1"
+zabbix_host_metadata: "nginx"
