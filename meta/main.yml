@@ -19,5 +19,4 @@ galaxy_info:
     - zabbix
     - zabbix-agent
     - monitoring
-dependencies:
-    - 
+dependencies: [] 
