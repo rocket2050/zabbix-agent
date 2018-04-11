@@ -3,3 +3,5 @@
 version: 3.4
 zabbix_server_ip: "127.0.0.1"
 zabbix_host_metadata: "nginx"
+redis_script_directory: "/etc/zabbix/script/redis"
+cron_user: "root"

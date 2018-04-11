@@ -1,0 +1,27 @@
+---
+- name: create script directory
+  file:
+    path: "{{ redis_script_directory }}"
+    state: directory
+    mode: 0755
+
+- name: Update the cache...
+  apt:
+    update_cache: yes
+
+
+- name: Installing python pip ...
+  apt: name=python-pip state=installed
+
+- pip:
+    name: redis
+
+- name: Run redis script ...
+  template: src=zbx_redis_stats.py.j2 dest={{ redis_script_directory }}/zbx_redis_stats.py owner=vagrant group=root mode=755
+
+- cron:
+    name: "Run redis script every minute"
+    user: "{{ cron_user }}"
+    minute: "*/1"
+    job: "{{ redis_script_directory }}/zbx_redis_stats.py {{ ansible_hostname }} -p 6379 > /dev/null 2>&1"
+

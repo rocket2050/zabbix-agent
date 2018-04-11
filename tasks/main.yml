@@ -36,3 +36,14 @@
 - name: Configuring Zabbix Agent ...
   template: src=zabbix_agent.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf owner=root group=root mode=0644
   notify: zabbix-agent restart
+
+
+- name: Fetch monitoring tag
+  include: nginx.yml
+  when:
+    - zabbix_host_metadata == "nginx"
+
+- name: Fetch monitoring tag
+  include: redis.yml
+  when:
+    - zabbix_host_metadata == "redis"

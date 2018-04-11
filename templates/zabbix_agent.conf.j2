@@ -163,7 +163,7 @@ Hostname={{ ansible_hostname }}
 # Mandatory: no
 # Range: 0-255 characters
 # Default:
-#HostMetadata={{ zabbix_host_metadata }}
+HostMetadata={{ zabbix_host_metadata }}
 
 ### Option: HostMetadataItem
 #	Optional parameter that defines an item used for getting host metadata.
@@ -174,7 +174,7 @@ Hostname={{ ansible_hostname }}
 #
 # Mandatory: no
 # Default:
-HostMetadataItem=system.uname
+#HostMetadataItem=system.uname
 
 ### Option: RefreshActiveChecks
 #	How often list of active checks is refreshed, in seconds.
