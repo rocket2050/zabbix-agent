@@ -1,4 +1,4 @@
 ---
 - hosts: "{{ host }}"
   roles:
-    - { role: "/etc/ansible/roles/paytm/zabbix-agent" }
+    - { role: "zabbix-agent" }
