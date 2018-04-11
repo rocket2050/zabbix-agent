@@ -17,7 +17,7 @@
     name: redis
 
 - name: Run redis script ...
-  template: src=zbx_redis_stats.py.j2 dest={{ redis_script_directory }}/zbx_redis_stats.py owner=vagrant group=root mode=755
+  template: src=zbx_redis_stats.py.j2 dest={{ redis_script_directory }}/zbx_redis_stats.py owner=root group=root mode=755
 
 - cron:
     name: "Run redis script every minute"
