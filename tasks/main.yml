@@ -33,9 +33,21 @@
   yum: name=zabbix-agent state=installed
   when: ansible_os_family == "Redhat"
 
+- name: Verify if HostMetadata already defined ...
+  shell: grep -ri HostMetadata= /etc/zabbix/zabbix_agentd.conf | cut -d'=' -f2
+  register: data
+
 - name: Configuring Zabbix Agent ...
   template: src=zabbix_agent.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf owner=root group=root mode=0644
+  when: data.stdout == ""
   notify: zabbix-agent restart
+
+- name: Appending HostMetadata value ...
+  replace:
+    path: /etc/zabbix/zabbix_agentd.conf
+    replace: 'HostMetadata=\1,{{ zabbix_host_metadata }}'
+    regexp: 'HostMetadata=(.*)'
+  when: data.stdout != ""
 
 
 - name: Fetch monitoring tag
