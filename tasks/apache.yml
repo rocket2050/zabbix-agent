@@ -1,0 +1,29 @@
+---
+- name: create script directory
+  file:
+    path: "{{ apache2_script_directory }}"
+    state: directory
+    mode: 0755
+
+- name: Update the cache...
+  apt:
+    update_cache: yes
+
+
+#- name: Installing python pip ...
+#  apt: name=python-pip state=installed
+
+
+- name: Run apache2 script ...
+  template: src=check_apache.j2 dest={{ apache2_script_directory }}/check_apache owner=root group=root mode=755
+
+- cron:
+    name: "Run apache script every minute"
+    user: "{{ cron_user }}"
+    minute: "*/1"
+    job:  "{{ apache2_script_directory }}/check_apache --zabbixsource {{ ansible_hostname }} -z {{ zabbix_server_ip }} &> /dev/null"
+
+- name: Install zabbix sender package
+  apt:
+    name: zabbix-sender
+    state: present
