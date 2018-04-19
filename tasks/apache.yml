@@ -10,10 +10,6 @@
     update_cache: yes
 
 
-#- name: Installing python pip ...
-#  apt: name=python-pip state=installed
-
-
 - name: Run apache2 script ...
   template: src=check_apache.j2 dest={{ apache2_script_directory }}/check_apache owner=root group=root mode=755
 
