@@ -59,3 +59,9 @@
   include: redis.yml
   when:
     - zabbix_host_metadata == "redis"
+
+- name: Fetch monitoring tag
+  include: apache.yml
+  when:
+    - zabbix_host_metadata == "apache"
+
