@@ -1,4 +1,7 @@
 ---
 # handlers file for zabbix-agent
 - name: zabbix-agent restart
-  service: name=zabbix-agent state=started
+  service: name=zabbix-agent state=restarted
+
+- name: service nginx restart
+  service: name=nginx state=restarted

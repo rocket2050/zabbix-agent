@@ -1,0 +1,21 @@
+---
+- name: Run nginx script ...
+  template: src=nginx-status.conf.j2 dest=/etc/nginx/sites-available/nginx-status.conf owner=root group=root mode=755
+
+- name: configuration linking it to sites-enabled
+  file: 
+    src: /etc/nginx/sites-available/nginx-status.conf
+    dest: /etc/nginx/sites-enabled/nginx-status.conf
+    owner: root
+    group: root
+    state: link
+
+- name: install zabbix sender package
+  apt:
+    name: zabbix-sender
+    state: present
+
+- name: Run userparameter_nginx.conf script ...
+  template: src=userparameter_nginx.conf.j2 dest=/etc/zabbix/zabbix_agentd.d/userparameter_nginx.conf owner=root group=root mode=755
+  notify: service nginx restart
+

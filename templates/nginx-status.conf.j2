@@ -1,0 +1,13 @@
+# Enable nginx status
+server {
+
+   listen {{ nginx_monitor_status_port }};
+
+   location /nginx-status {
+        stub_status on;
+        access_log   off;
+        allow 127.0.0.1;
+        allow {{ zabbix_server_ip }};    # Put your zabbix_mon zabbix monitoring server here
+        deny all;
+        }
+}

@@ -1,8 +1,9 @@
 ---
 # defaults file for zabbix-agent
-version: 3.4
-zabbix_server_ip: "127.0.0.1"
-zabbix_host_metadata: "linux"
+version: 3.2
+zabbix_server_ip: "192.168.0.94"
+zabbix_host_metadata: "nginx"
 redis_script_directory: "/etc/zabbix/script/redis"
 apache2_script_directory: "/etc/zabbix/script/apache2"
 cron_user: "root"
+nginx_monitor_status_port: "8081"
