@@ -49,6 +49,24 @@
     regexp: 'HostMetadata=(.*)'
   when: data.stdout != ""
 
+- name: Adding hostname if zabbix agent already installed ...
+  lineinfile:
+    dest: /etc/zabbix/zabbix_agentd.conf
+    regexp: 'Server='
+    line: 'Server={{ zabbix_server_ip }}'
+
+- name: Adding Serveractive if zabbix agent already installed ...
+  lineinfile:
+    dest: /etc/zabbix/zabbix_agentd.conf
+    regexp: 'ServerActive'
+    line: 'ServerActive={{ zabbix_server_ip }}'
+
+#- name: Adding Hostname if zabbix agent already installed ...
+#  lineinfile:
+#    dest: /etc/zabbix/zabbix_agentd.conf
+#    regexp: 'Hostname'
+#    line: 'Hostname={{ hostname }}'
+#  when: Hostname != {{ hostname }}
 
 - name: Fetch monitoring tag
   include: nginx.yml
