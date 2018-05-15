@@ -37,6 +37,13 @@
   shell: grep -ri HostMetadata= /etc/zabbix/zabbix_agentd.conf | cut -d'=' -f2
   register: data
 
+- name: Verify if HostMetadata already defined ...
+  shell: grep -ri {{ zabbix_host_metadata }}  /etc/zabbix/zabbix_agentd.conf
+  register: meta_data
+  check_mode: no
+  ignore_errors: yes
+  changed_when: no
+
 - name: Configuring Zabbix Agent ...
   template: src=zabbix_agent.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf owner=root group=root mode=0644
   when: data.stdout == ""
@@ -47,7 +54,7 @@
     path: /etc/zabbix/zabbix_agentd.conf
     replace: 'HostMetadata=\1,{{ zabbix_host_metadata }}'
     regexp: 'HostMetadata=(.*)'
-  when: data.stdout != ""
+  when: data.stdout != "" and (meta_data.rc == 1)
 
 - name: Adding hostname if zabbix agent already installed ...
   lineinfile:
