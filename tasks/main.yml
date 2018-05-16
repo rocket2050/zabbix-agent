@@ -68,11 +68,11 @@
     regexp: 'ServerActive'
     line: 'ServerActive={{ zabbix_server_ip }}'
 
-#- name: Adding Hostname if zabbix agent already installed ...
-#  lineinfile:
-#    dest: /etc/zabbix/zabbix_agentd.conf
-#    regexp: 'Hostname'
-#    line: 'Hostname={{ hostname }}'
+- name: Adding Hostname if zabbix agent already installed ...
+  lineinfile:
+    dest: /etc/zabbix/zabbix_agentd.conf
+    regexp: 'Hostname='
+    line: 'Hostname={{ hostname }}'
 #  when: Hostname != {{ hostname }}
 
 - name: Fetch monitoring tag

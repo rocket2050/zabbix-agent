@@ -143,8 +143,8 @@ ServerActive={{ zabbix_server_ip }}
 # Mandatory: no
 # Default:
 # Hostname=
-{% if hostname is defined %}Hostname= {{ hostname }}
-{% else %}Hostname = {{ ansible_hostname }}
+{% if hostname is defined %}Hostname={{ hostname }}
+{% else %}Hostname={{ ansible_hostname }}
 {% endif %}
 
 
