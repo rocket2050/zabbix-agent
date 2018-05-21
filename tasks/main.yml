@@ -73,6 +73,7 @@
     dest: /etc/zabbix/zabbix_agentd.conf
     regexp: 'Hostname='
     line: 'Hostname={{ hostname }}'
+  ignore_errors: yes
 #  when: Hostname != {{ hostname }}
 
 - name: Fetch monitoring tag
