@@ -1,0 +1,29 @@
+---
+- name: create script directory
+  file:
+    path: "{{ mongo_script_directory }}"
+    state: directory
+    mode: 0755
+
+- name: Update the cache...
+  apt:
+    update_cache: yes
+
+- name: Installing php
+  apt: 
+   name: php
+   state: present
+
+
+- name: Copy mongo data fetch script ...
+  template: src=mikoomi-mongodb-plugin-32.php.j2 dest={{ redis_script_directory }}/mikoomi-mongodb-plugin-32.php owner=root group=root mode=755
+
+- name: Copy cron script
+  template: src=mikoomi-mongodb-plugin-32.sh dest={{ redis_script_directory }}/mikoomi-mongodb-plugin-32.sh owner=root group=root mode=755
+
+- cron:
+    name: "Run mongo script every minute"
+    user: "{{ cron_user }}"
+    minute: "*/1"
+    job: "{{ redis_script_directory }}/mikoomi-mongodb-plugin-32.sh -h 127.0.0.1 -p 27017 -u {{ mongo_username }} -x {{ mongo_password }} -H zabbix -P 10051 -z {{ ansible_hostname }} -p 6379 > /dev/null 2>&1"
+

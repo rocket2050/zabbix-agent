@@ -81,6 +81,11 @@
     - zabbix_host_metadata == "nginx"
 
 - name: Fetch monitoring tag
+  include: mongo.yml
+  when:
+    - zabbix_host_metadata == "mongo"
+
+- name: Fetch monitoring tag
   include: redis.yml
   when:
     - zabbix_host_metadata == "redis"
