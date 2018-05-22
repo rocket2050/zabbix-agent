@@ -10,9 +10,12 @@
     update_cache: yes
 
 - name: Installing php
-  apt: 
-   name: php
-   state: present
+  apt: name={{item}} state=present
+  with_items:
+      - php5.6
+      - php-pear
+      - php5.6-common
+      - php-mongo
 
 
 - name: Copy mongo data fetch script ...
@@ -25,5 +28,5 @@
     name: "Run mongo script every minute"
     user: "{{ cron_user }}"
     minute: "*/1"
-    job: "{{ mongo_script_directory }}/mikoomi-mongodb-plugin-32.sh -h 127.0.0.1 -p 27017 -u {{ mongo_username }} -x {{ mongo_password }} -H zabbix -P 10051 -z {{ ansible_hostname }} -p 6379 > /dev/null 2>&1"
+    job: "{{ mongo_script_directory }}/mikoomi-mongodb-plugin-32.sh -h 127.0.0.1 -p 27017 -u {{ mongo_username }} -x {{ mongo_password }} -H zabbix -P 10051 -z {{ ansible_hostname }}"
 

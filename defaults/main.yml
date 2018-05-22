@@ -3,7 +3,7 @@
 version: 3.2
 hostname: new
 zabbix_server_ip: "192.168.0.78"
-zabbix_host_metadata: "nginx"
+zabbix_host_metadata: "mongo"
 redis_script_directory: "/etc/zabbix/script/redis"
 mongo_script_directory: "/etc/zabbix/externalscript/"
 apache2_script_directory: "/etc/zabbix/script/apache2"
