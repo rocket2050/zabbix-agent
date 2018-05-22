@@ -5,6 +5,12 @@
     state: directory
     mode: 0755
 
+
+- name: Adding php repository
+  apt_repository:
+    repo: ppa:ondrej/php
+
+
 - name: Update the cache...
   apt:
     update_cache: yes
@@ -12,11 +18,18 @@
 - name: Installing php
   apt: name={{item}} state=present
   with_items:
+      - software-properties-common
       - php5.6
       - php-pear
-      - php5.6-common
+      - php5.6-dev
       - php-mongo
+      - zabbix-sender
 
+- name: Delete php version 7
+  file: path=/usr/bin/php state=absent
+
+- name: Enable php 5.6
+  file: src=/usr/bin/php5.6 dest=/usr/bin/php owner=root group=root state=link
 
 - name: Copy mongo data fetch script ...
   copy: src=mikoomi-mongodb-plugin-32.php dest={{ mongo_script_directory }}/mikoomi-mongodb-plugin-32.php owner=root group=root mode=755
