@@ -95,5 +95,10 @@
   when:
     - zabbix_host_metadata == "apache"
 
+- name: Fetch monitoring tag
+  include: tomcat.yml
+  when:
+    - zabbix_host_metadata == "tomcat"
+
 
 #- notify: service nginx restart

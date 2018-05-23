@@ -1,0 +1,8 @@
+---
+
+- name: Copy tomcat updated catalina.sh ...
+  template: src=catalina.sh.j2 dest={{ tomcat_home }}/bin/catalina.sh owner=root group=tomcat mode=755
+
+- name: Restart tomcat
+  service: name=tomcat state=restarted
+

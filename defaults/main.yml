@@ -2,8 +2,8 @@
 # defaults file for zabbix-agent
 version: 3.2
 hostname: new
-zabbix_server_ip: "192.168.0.78"
-zabbix_host_metadata: "mongo"
+zabbix_server_ip: "192.168.33.35"
+zabbix_host_metadata: "tomcat"
 redis_script_directory: "/etc/zabbix/script/redis"
 mongo_script_directory: "/etc/zabbix/externalscript/"
 apache2_script_directory: "/etc/zabbix/script/apache2"
@@ -11,3 +11,4 @@ cron_user: "root"
 nginx_monitor_status_port: "8081"
 mongo_username: "admin"
 mongo_password: "admin"
+tomcat_home: "/opt/tomcat"
